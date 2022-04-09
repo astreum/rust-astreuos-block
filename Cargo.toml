@@ -1,0 +1,16 @@
+[package]
+name = "astreuos-block"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Astreuos Block is a library for encoding, decoding and verifying blocks for the Astreuos Blockchain."
+repository = "https://github.com/astreuos/rust-astreuos-block"
+readme = "README.md"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+astreuos-transaction = "0.1.0"
+astro-format = "0.2.0"
+fides = "2.2.0"
+opis = "3.0.7"
