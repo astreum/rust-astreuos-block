@@ -84,7 +84,7 @@ impl Block {
                 Err("Transactions error!")?
             } else {
 
-                let mut block = Block {
+                let block = Block {
                     accounts_hash: set[0].clone().try_into().unwrap_or(Err("Accounts hash error!")?),
                     chain: Int::from_bytes(&set[1]),
                     number: Int::from_bytes(&set[2]),
@@ -94,7 +94,7 @@ impl Block {
                     solar_price: Int::from_bytes(&set[6]),
                     solar_used: Int::from_bytes(&set[7]),
                     time: Int::from_bytes(&set[8]),
-                    transactions: txs.iter().map(|x| x.unwrap()).collect(),
+                    transactions: txs.iter().map(|x| x.clone().unwrap()).collect(),
                     transactions_hash: set[10].clone().try_into().unwrap_or(Err("Transactions hash error!")?),
                     validator: set[11].clone().try_into().unwrap_or(Err("Validator error!")?)
                 };
@@ -112,7 +112,7 @@ impl Block {
 
     pub fn to_bytes(&self) -> Vec<u8> {
         
-        encode(vec![
+        encode(&vec![
             self.accounts_hash.to_vec(),
             self.chain.to_bytes(),
             self.number.to_bytes(),
