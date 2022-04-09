@@ -14,7 +14,6 @@ pub struct Block {
     pub solar_price: Int,
     pub solar_used: Int,
     pub time: Int,
-    pub transactions_hash: [u8; 32],
     pub transactions: Vec<Transaction>,
     pub validator: [u8; 32]
 }
@@ -32,7 +31,6 @@ impl Block {
             solar_price: Int::zero(),
             solar_used: Int::zero(),
             time: Int::zero(),
-            transactions_hash: [0_u8; 32],
             transactions: Vec::new(),
             validator: [0_u8; 32]
         }
@@ -48,7 +46,6 @@ impl Block {
             self.solar_price.to_bytes(),
             self.solar_used.to_bytes(),
             self.time.to_bytes().to_vec(),
-            self.transactions_hash().to_vec(),
             self.validator.to_vec()
         ])
     }
@@ -95,7 +92,6 @@ impl Block {
                     solar_used: Int::from_bytes(&set[7]),
                     time: Int::from_bytes(&set[8]),
                     transactions: txs.iter().map(|x| x.clone().unwrap()).collect(),
-                    transactions_hash: set[10].clone().try_into().unwrap_or(Err("Transactions hash error!")?),
                     validator: set[11].clone().try_into().unwrap_or(Err("Validator error!")?)
                 };
                 
@@ -123,7 +119,6 @@ impl Block {
             self.solar_used.to_bytes(),
             self.time.to_bytes(),
             encode(&self.transactions.iter().map(|x| x.to_bytes()).collect()),
-            self.transactions_hash.to_vec(),
             self.validator.to_vec()
 
         ])
@@ -135,7 +130,7 @@ impl Block {
         if self.number == Int::zero() {
             true
         } else {
-            self.transactions_hash == self.transactions_hash() && ed25519::verify(&self.body_hash(), &self.validator, &self.signature)
+            ed25519::verify(&self.body_hash(), &self.validator, &self.signature)
         }
     }
 }
