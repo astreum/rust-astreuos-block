@@ -1,6 +1,6 @@
 [package]
 name = "astreuos-block"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2021"
 license = "MIT"
 description = "Astreuos Block is a library for encoding, decoding and verifying blocks for the Astreuos Blockchain."

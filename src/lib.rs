@@ -4,6 +4,7 @@ use fides::{ed25519, merkle_root};
 use opis::Int;
 use std::error::Error;
 
+#[derive(Clone, Debug)]
 pub struct Block {
     pub accounts_hash: [u8; 32],
     pub chain: Int,
