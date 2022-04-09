@@ -70,7 +70,7 @@ impl Block {
         
         if set.len() == 12 {
             
-            let mut txs: Vec<Option<Transaction>> = decode(&set[9])
+            let txs: Vec<Option<Transaction>> = decode(&set[9])
                 .iter()
                 .map(|x| {
                     match Transaction::from_bytes(x) {
